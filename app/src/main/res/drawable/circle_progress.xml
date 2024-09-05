@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/donut_circle.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background circle (outer circle) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF"/> <!-- Outer circle color -->
+        </shape>
+    </item>
+
+    <!-- Inner circle (hole) -->
+    <item android:top="10dp" android:left="10dp" android:right="10dp" android:bottom="10dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/slideColor"/> <!-- Inner circle color -->
+        </shape>
+    </item>
+</layer-list>

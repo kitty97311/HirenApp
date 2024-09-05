@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="buttonColorArray">
+        <item>@color/buttonColor1</item>
+        <item>@color/buttonColor2</item>
+        <item>@color/buttonColor3</item>
+        <item>@color/buttonColor4</item>
+        <item>@color/buttonColor5</item>
+    </array>
+</resources>
