@@ -168,7 +168,7 @@
 
         <LinearLayout
             android:id="@+id/slide"
-            android:translationY="400dp"
+            android:translationY="250dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -240,15 +240,37 @@
                 android:background="@drawable/triangle_shape"/>
 
             <LinearLayout
+                android:paddingTop="100dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_shape"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/txtSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="Monday, Sep 2"/>
+
                 <com.horizontalcalendar.HorizontalCalendarView
                     android:id="@+id/calendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="18dp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="You are on a 2 day streak"/>
 
             </LinearLayout>
             

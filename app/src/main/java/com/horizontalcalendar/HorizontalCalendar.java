@@ -425,7 +425,7 @@ public final class HorizontalCalendar {
 
         @Override
         public CalendarItemStyle style() {
-            return new CalendarItemStyle(Color.GRAY, null);
+            return new CalendarItemStyle(Color.WHITE, null);
         }
     };
 

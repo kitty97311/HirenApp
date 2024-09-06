@@ -1,5 +1,7 @@
 package com.horizontalcalendar.adapter;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,12 +121,21 @@ public abstract class HorizontalCalendarBaseAdapter<VH extends DateViewHolder, T
         // Selected Day
         if (position == selectedItemPosition) {
             applyStyle(viewHolder, horizontalCalendar.getSelectedItemStyle());
+            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff7600")));
             viewHolder.selectionView.setVisibility(View.VISIBLE);
         }
         // Unselected Days
         else {
             applyStyle(viewHolder, horizontalCalendar.getDefaultStyle());
+            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
             viewHolder.selectionView.setVisibility(View.INVISIBLE);
+        }
+        Calendar today = Calendar.getInstance();
+        if (date.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+                && date.get(Calendar.MONTH) == today.get(Calendar.MONTH)
+                && date.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
+            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0021ff")));
+            viewHolder.textMiddle.setTextColor(Color.WHITE);
         }
     }
 

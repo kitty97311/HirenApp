@@ -1,5 +1,7 @@
 package com.horizontalcalendar.adapter;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.View;
@@ -35,11 +37,11 @@ public class DaysAdapter extends HorizontalCalendarBaseAdapter<DateViewHolder, C
 
         final Integer selectorColor = horizontalCalendar.getConfig().getSelectorColor();
         if (selectorColor != null) {
-            holder.selectionView.setBackgroundColor(selectorColor);
+//            holder.selectionView.setBackgroundColor(selectorColor);
         }
 
-        holder.textMiddle.setText(DateFormat.format(config.getFormatMiddleText(), day));
-        holder.textMiddle.setTextSize(TypedValue.COMPLEX_UNIT_SP, config.getSizeMiddleText());
+        holder.textMiddle.setText(day.get(Calendar.DAY_OF_MONTH) + "");
+//        holder.textMiddle.setTextSize(TypedValue.COMPLEX_UNIT_SP, config.getSizeMiddleText());
 
         if (config.isShowTopText()) {
             holder.textTop.setText(DateFormat.format(config.getFormatTopText(), day));

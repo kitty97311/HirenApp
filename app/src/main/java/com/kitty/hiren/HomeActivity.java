@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
@@ -31,6 +32,7 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
     private Button btnA, btnB, btnC, btnD, btnE;
     private View slide;
     private ImageView slideButton;
+    private TextView txtSelected;
 
     private ArrayList<Date> dates;
 
@@ -46,6 +48,10 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
         slide = findViewById(R.id.slide);
         slideButton = findViewById(R.id.slideButton);
         slideButton.setOnClickListener(this);
+        txtSelected = findViewById(R.id.txtSelected);
+
+        String todayStr = DateFormat.format("EEEE, MMM d", Calendar.getInstance()).toString();
+        txtSelected.setText(todayStr);
 
         setButtonColor();
 
@@ -69,25 +75,25 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
                 .formatBottomText("EEE")
                 .showTopText(true)
                 .showBottomText(true)
-                .textColor(Color.LTGRAY, Color.WHITE)
-                .colorTextMiddle(Color.LTGRAY, Color.parseColor("#ffd54f"))
+                .textColor(Color.WHITE, Color.WHITE)
+                .colorTextMiddle(Color.WHITE, Color.parseColor("#0021ff"))
                 .end()
                 .defaultSelectedDate(defaultSelectedDate)
-                .addEvents(new CalendarEventsPredicate() {
-
-                    Random rnd = new Random();
-                    @Override
-                    public List<CalendarEvent> events(Calendar date) {
-                        List<CalendarEvent> events = new ArrayList<>();
-                        int count = rnd.nextInt(6);
-
-                        for (int i = 0; i <= count; i++){
-                            events.add(new CalendarEvent(Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)), "event"));
-                        }
-
-                        return events;
-                    }
-                })
+//                .addEvents(new CalendarEventsPredicate() {
+//
+//                    Random rnd = new Random();
+//                    @Override
+//                    public List<CalendarEvent> events(Calendar date) {
+//                        List<CalendarEvent> events = new ArrayList<>();
+//                        int count = rnd.nextInt(6);
+//
+//                        for (int i = 0; i <= count; i++){
+//                            events.add(new CalendarEvent(Color.rgb(rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)), "event"));
+//                        }
+//
+//                        return events;
+//                    }
+//                })
                 .build();
 
         Log.i("Default Date", DateFormat.format("EEE, MMM d, yyyy", defaultSelectedDate).toString());
@@ -95,8 +101,9 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                String selectedDateStr = DateFormat.format("EEE, MMM d, yyyy", date).toString();
-                Toast.makeText(HomeActivity.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
+                String selectedDateStr = DateFormat.format("EEEE, MMM d", date).toString();
+                txtSelected.setText(selectedDateStr);
+//                Toast.makeText(HomeActivity.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
                 Log.i("onDateSelected", selectedDateStr + " - Position = " + position);
             }
 
@@ -113,15 +120,18 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
         btnE.setBackgroundTintList(ColorStateList.valueOf(colors.getColor(Integer.parseInt(btnE.getText().toString()), ContextCompat.getColor(this, R.color.buttonColor5))));
     }
 
+    private boolean isShown = false;
+
     private void toggleSlide() {
         // Slide up
-        if (slideButton.getDrawable().getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.ic_up).getConstantState())) {
+        if (!isShown) {
             slideButton.setImageResource(R.drawable.ic_down);
             slide.animate().translationY(0).setDuration(300).start();
         } else { // Slide down
             slideButton.setImageResource(R.drawable.ic_up);
-            slide.animate().translationY(400 * (getResources().getDisplayMetrics().density)).setDuration(300).start();
+            slide.animate().translationY(250 * (getResources().getDisplayMetrics().density)).setDuration(300).start();
         }
+        isShown = !isShown;
     }
 
     @Override

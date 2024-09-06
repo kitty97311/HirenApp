@@ -13,6 +13,16 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/hc_text_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:text="Mon" />
+
+        <TextView
+            android:visibility="gone"
             android:id="@+id/hc_text_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,20 +32,15 @@
 
         <TextView
             android:id="@+id/hc_text_middle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:background="@drawable/circle_button"
             android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:text="2" />
-
-        <TextView
-            android:id="@+id/hc_text_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:text="Mon" />
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -51,7 +56,7 @@
     <View
         android:id="@+id/hc_selector"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:background="#f00f0f"
         android:visibility="visible" />
