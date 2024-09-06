@@ -3,6 +3,7 @@ package com.horizontalcalendar.adapter;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,12 @@ import com.horizontalcalendar.utils.CalendarEventsPredicate;
 import com.horizontalcalendar.utils.HorizontalCalendarListener;
 import com.horizontalcalendar.utils.HorizontalCalendarPredicate;
 import com.horizontalcalendar.utils.Utils;
+import com.kitty.hiren.KittyGlobal;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public abstract class HorizontalCalendarBaseAdapter<VH extends DateViewHolder, T extends Calendar> extends RecyclerView.Adapter<VH> {
@@ -118,25 +122,40 @@ public abstract class HorizontalCalendarBaseAdapter<VH extends DateViewHolder, T
             }
         }
 
-        // Selected Day
+        // Create a SimpleDateFormat object with the desired format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // Format the Date into the desired string format
+        String formattedDate = sdf.format(date.getTime());
+        if (KittyGlobal.EXERCISE_DATE_ARRAY.contains(formattedDate)) {
+            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff7600")));
+            viewHolder.textMiddle.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+
+        // Selected Day Kitty
         if (position == selectedItemPosition) {
             applyStyle(viewHolder, horizontalCalendar.getSelectedItemStyle());
-            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff7600")));
+            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0021ff")));
             viewHolder.selectionView.setVisibility(View.VISIBLE);
         }
         // Unselected Days
         else {
             applyStyle(viewHolder, horizontalCalendar.getDefaultStyle());
-            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+            if (!KittyGlobal.EXERCISE_DATE_ARRAY.contains(formattedDate))
+                viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
             viewHolder.selectionView.setVisibility(View.INVISIBLE);
         }
+
+        // Today Kitty
         Calendar today = Calendar.getInstance();
         if (date.get(Calendar.YEAR) == today.get(Calendar.YEAR)
                 && date.get(Calendar.MONTH) == today.get(Calendar.MONTH)
                 && date.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)) {
-            viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0021ff")));
-            viewHolder.textMiddle.setTextColor(Color.WHITE);
+            if (position != selectedItemPosition) {
+                viewHolder.textMiddle.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+                viewHolder.textMiddle.setTextColor(Color.parseColor("#0021ff"));
+            }
         }
+
     }
 
     protected void applyStyle(VH viewHolder, CalendarItemStyle itemStyle) {

@@ -33,6 +33,8 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
     private View slide;
     private ImageView slideButton;
     private TextView txtSelected;
+    private Button btnGoToday;
+    private HorizontalCalendar horizontalCalendar;
 
     private ArrayList<Date> dates;
 
@@ -49,6 +51,7 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
         slideButton = findViewById(R.id.slideButton);
         slideButton.setOnClickListener(this);
         txtSelected = findViewById(R.id.txtSelected);
+        btnGoToday = findViewById(R.id.btnGoToday);
 
         String todayStr = DateFormat.format("EEEE, MMM d", Calendar.getInstance()).toString();
         txtSelected.setText(todayStr);
@@ -63,12 +66,14 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
         Calendar endDate = Calendar.getInstance();
         endDate.add(Calendar.MONTH, 2);
 
+        btnGoToday.setOnClickListener(this);
+
         // Default Date set to Today.
         final Calendar defaultSelectedDate = Calendar.getInstance();
 
-        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendar)
+        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendar)
                 .range(startDate, endDate)
-                .datesNumberOnScreen(5)
+                .datesNumberOnScreen(7)
                 .configure()
                 .formatTopText("MMM")
                 .formatMiddleText("dd")
@@ -76,7 +81,7 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
                 .showTopText(true)
                 .showBottomText(true)
                 .textColor(Color.WHITE, Color.WHITE)
-                .colorTextMiddle(Color.WHITE, Color.parseColor("#0021ff"))
+                .colorTextMiddle(Color.WHITE, Color.parseColor("#FFFFFF"))
                 .end()
                 .defaultSelectedDate(defaultSelectedDate)
 //                .addEvents(new CalendarEventsPredicate() {
@@ -103,6 +108,10 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
             public void onDateSelected(Calendar date, int position) {
                 String selectedDateStr = DateFormat.format("EEEE, MMM d", date).toString();
                 txtSelected.setText(selectedDateStr);
+                if (selectedDateStr.equals(DateFormat.format("EEEE, MMM d", Calendar.getInstance()).toString()))
+                    btnGoToday.setVisibility(View.INVISIBLE);
+                else
+                    btnGoToday.setVisibility(View.VISIBLE);
 //                Toast.makeText(HomeActivity.this, selectedDateStr + " selected!", Toast.LENGTH_SHORT).show();
                 Log.i("onDateSelected", selectedDateStr + " - Position = " + position);
             }
@@ -129,7 +138,7 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
             slide.animate().translationY(0).setDuration(300).start();
         } else { // Slide down
             slideButton.setImageResource(R.drawable.ic_up);
-            slide.animate().translationY(250 * (getResources().getDisplayMetrics().density)).setDuration(300).start();
+            slide.animate().translationY(350 * (getResources().getDisplayMetrics().density)).setDuration(300).start();
         }
         isShown = !isShown;
     }
@@ -138,6 +147,8 @@ public class HomeActivity extends ComponentActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.slideButton) {
             toggleSlide();
+        } else if (view.getId() == R.id.btnGoToday) {
+            horizontalCalendar.goToday(false);
         }
     }
 }

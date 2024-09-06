@@ -32,7 +32,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         Context context = parent.getContext();
         ImageView imageView = new ImageView(context);
 
-        Drawable circle = ContextCompat.getDrawable(context, R.drawable.ic_circle_white_8dp);
+        Drawable circle = ContextCompat.getDrawable(context, R.drawable.ic_circle_white);
         Drawable drawableWrapper = DrawableCompat.wrap(circle);
 
         imageView.setImageDrawable(drawableWrapper);
